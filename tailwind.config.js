@@ -8,7 +8,7 @@ export default {
     extend: {
       colors:{
         'usap-blue': '#0055B9',
-        'h-usap-blue': '#074893'
+        'usap-orange': '#ff8243'
       }
     },
   },
