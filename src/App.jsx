@@ -1,16 +1,19 @@
-import './App.css'
-import Login from './components/login/login.jsx'
-import GoogleAuth from './components/googleAuth/auth.jsx'
-function App() {
+import "./App.css";
+import Login from "./components/login/login.jsx";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/home/home.jsx";
+import ReposicionClase from "./pages/reposicion/reposicion.jsx";
 
+function App() {
   return (
-    <>
-      <Login />
-      <div className='w-full flex items-center justify-center pt-3'>
-        <GoogleAuth />
-      </div>
-    </>
-  )
+    <div className="App w-full">
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/reposicion-clase" element={<ReposicionClase />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;

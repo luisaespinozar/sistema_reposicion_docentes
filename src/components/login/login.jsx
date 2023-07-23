@@ -1,7 +1,7 @@
-import '../login/login.css'
+import "../login/login.css";
+import GoogleAuth from "../googleAuth/auth.jsx";
 
 function Login() {
-
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 pt-4 lg:px-8">
@@ -15,7 +15,10 @@ function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#" method="POST">
             <div>
-              <label htmlFor="email" className="flex items-center justify-between text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="email"
+                className="flex items-center justify-between text-sm font-medium leading-6 text-gray-900"
+              >
                 Correo Electronico
               </label>
               <div className="mt-2">
@@ -32,7 +35,10 @@ function Login() {
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
                   Contraseña
                 </label>
               </div>
@@ -59,10 +65,13 @@ function Login() {
               <label>ó inicia sesion con</label>
             </div>
           </form>
+          <div className="w-full flex items-center justify-center pt-3">
+            <GoogleAuth />
+          </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;
