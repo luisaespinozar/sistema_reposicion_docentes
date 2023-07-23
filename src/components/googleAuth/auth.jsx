@@ -13,7 +13,7 @@ function GoogleAuth() {
   };
 
   const onFailure = () => {
-    console.log("ALgo salio mal papi");
+    console.log("ALgo salio mal :)");
   };
 
   return (
