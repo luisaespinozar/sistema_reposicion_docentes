@@ -9,7 +9,11 @@ function GoogleAuth() {
     const token = res.credential;
     const userData = jwt_decode(token);
     console.log(userData);
-    navigate("/home", { state: { userData: userData } });
+    const indexArroba = userData.email.indexOf('@');
+  
+    const numeroCuenta = userData.email.slice(0, indexArroba);
+  
+    navigate("/home", { state: { userData: userData, cuentaCatedratico: numeroCuenta } });
   };
 
   const onFailure = () => {
