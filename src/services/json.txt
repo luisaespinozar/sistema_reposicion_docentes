@@ -1,0 +1,19 @@
+const reposicionData = {
+  idDocente: 2,
+  idClase: 1,
+  tipoTramite: "REPOSICION",
+  conGoseSueldo: 1,
+  linkAulaVirtual: "link",
+  motivo: "TEST SISTEMA",
+  breveExplicacion: "VACIO",
+  fechaReposicion: "28/07/2023",
+  horaInicio: "9:30",
+  horaFin: "10:15"
+};
+
+const jsonPayload = {
+  reposicionData: reposicionData
+};
+
+const jsonString = JSON.stringify(jsonPayload);
+console.log(jsonString);
