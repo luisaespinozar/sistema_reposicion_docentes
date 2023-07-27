@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function ReposicionClase() {
   const [link, setLink] = useState("");
   const [error, setError] = useState("");
-
+  const location = useLocation();
+  const clase = location.state.claseSeleccionada;
   const handleChange = (event) => {
     const inputValue = event.target.value;
     setLink(inputValue);
@@ -22,7 +24,7 @@ export default function ReposicionClase() {
         <div className="lado-izq">
           <div className=" text-base font-semibold leading-7 text-gray-900">
             <span>Asignatura a reponer:</span>
-            <span>AQUI ASIGNATURA</span>
+            <span>{clase.asig_asignatura}</span>
           </div>
           <p className="mt-1 text-sm leading-6 text-gray-600">
             Detalles sobre la asignatura
@@ -30,15 +32,15 @@ export default function ReposicionClase() {
           <div className="pb-8">
             <div className="flex gap-1 text-gray-500 italic">
               <span>Seccion:</span>
-              <span>NUM SECCION AQUI</span>
+              <span>{clase.sec_seccion}</span>
             </div>
             <div className="flex gap-1 text-gray-500 italic">
               <span>Horario:</span>
-              <span>HORAINICION - HORAFIN</span>
+              <span>{clase.inicio_clase} {clase.jornada === 'NOCHE' ? 'PM' : 'AM'} - {clase.fin_clase} {clase.jornada === 'NOCHE' ? 'PM' : 'AM'}</span>
             </div>
             <div className="flex gap-1 text-gray-500 italic">
               <span>Dias:</span>
-              <span>K-J</span>
+              <span>{clase.dias}</span>
             </div>
           </div>
         </div>
@@ -50,7 +52,7 @@ export default function ReposicionClase() {
                 <div className="flex flex-col gap-4 pt-5">
                   <div className="flex gap-1">
                     <span className="font-bold">Nombre del docente:</span>
-                    <span>AQUI NOMBRE</span>
+                    <span>{clase.doce_nombres} {clase.doce_apellidos} </span>
                   </div>
                   <div className="flex gap-1">
                     <span className="font-bold">Departamento:</span>

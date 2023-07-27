@@ -6,25 +6,26 @@ import { getClasesData } from "../../services/getInfoClases";
 
 
 export default function ListaClase() {
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state.userData; 
   const cuentaCatedratico = location.state.cuentaCatedratico; 
 
-  const seleccionarClase = () => {
-    console.log("Seleccionaste una clase");
+  const seleccionarClase = (id_clase) => {
+    console.log('ID_CLASE: ', id_clase);
+    const claseSeleccionada = data.find((clase) => clase.id_clase === id_clase);
     navigate("/reposicion-clase", {
-      state: { userData: userData },
+      state: { claseSeleccionada: claseSeleccionada },
     });
   };
 
-  const [data, setData] = useState([]);
+  
   useEffect(() => {
     getClasesData(cuentaCatedratico)
       .then((data) => {
-        console.log("cuentaCatedratico: ", cuentaCatedratico);
         setData(data);
-        console.log(data);
+        console.log('DATA: ', data);
       })
       .catch((error) => console.error('Error:', error));
   }, []);
@@ -34,7 +35,7 @@ export default function ListaClase() {
       <ul role="list" className="divide-y divide-gray-100 w-2/5">
         {data.map((info) => (
           <li
-            onClick={seleccionarClase}
+            onClick={() => seleccionarClase(info.id_clase)}
             key={info.id_clase}
             className="flex justify-between gap-x-6 py-5 hover:bg-gray-200"
           >
