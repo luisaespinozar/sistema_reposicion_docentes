@@ -16,7 +16,7 @@ export default function ListaClase() {
     console.log('ID_CLASE: ', id_clase);
     const claseSeleccionada = data.find((clase) => clase.id_clase === id_clase);
     navigate("/reposicion-clase", {
-      state: { claseSeleccionada: claseSeleccionada },
+      state: { claseSeleccionada: claseSeleccionada, userData: userData, cuentaCatedratico: cuentaCatedratico },
     });
   };
 
@@ -28,6 +28,7 @@ export default function ListaClase() {
         console.log('DATA: ', data);
       })
       .catch((error) => console.error('Error:', error));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="flex items-center justify-center">

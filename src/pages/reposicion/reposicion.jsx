@@ -1,15 +1,70 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, } from "react-router-dom";
+import { postRegistrarReposicion } from "../../services/postReposicionDB";
 
 export default function ReposicionClase() {
+  const [tipoTramite, setTipoTramite] = useState(""); // Estado para el tipo de trámite (reposicion, sustitucion, ninguno)
+  const [conGoseSueldo, setConGoseSueldo] = useState(false);
   const [link, setLink] = useState("");
+  const [motivo, setMotivo] = useState("");
+  const [fechaReposicion, setFechaReposicion] = useState("");
+  const [breveExplicacion, setBreveExplicacion] = useState("");
+  const [horaInicio, setHoraInicio] = useState("");
+  const [horaFin, setHoraFin] = useState("");
   const [error, setError] = useState("");
   const location = useLocation();
+  const userData = location.state.userData; 
+  const cuentaCatedratico = location.state.cuentaCatedratico; 
+  const navigate = useNavigate();
   const clase = location.state.claseSeleccionada;
+
   const handleChange = (event) => {
-    const inputValue = event.target.value;
-    setLink(inputValue);
-    setError(validateLink(inputValue));
+    if (event.target.id === "aula-link") {
+      const inputValue = event.target.value;
+      setLink(inputValue);
+      setError(validateLink(inputValue));
+      return;
+    }
+    
+    if (event.target.id === "motivo") {
+      const inputValue = event.target.value;
+      setMotivo(inputValue);
+      return;
+    }
+
+    if (event.target.id === "breve-motivo") {
+      const inputValue = event.target.value;
+      setBreveExplicacion(inputValue);
+      return;
+    }
+    
+    if (event.target.id === "fecha-reposicion") {
+      const inputValue = event.target.value;
+      setFechaReposicion(inputValue);
+      return;
+    }
+
+    if (event.target.id === "hora-inicio") {
+      const inputValue = event.target.value;
+      setHoraInicio(inputValue);
+      return;
+    }
+
+    if (event.target.id === "hora-fin") {
+      const inputValue = event.target.value;
+      setHoraFin(inputValue);
+      return;
+    }
+  };
+
+  const handleTipoTramiteChange = (event) => {
+    const inputValue = event.target.id;
+    setTipoTramite(inputValue.toUpperCase());
+  };
+  
+  const handleConGoseSueldoChange = (event) => {
+    const checked = event.target.checked;
+    setConGoseSueldo(checked);
   };
 
   const validateLink = (inputValue) => {
@@ -17,6 +72,29 @@ export default function ReposicionClase() {
     return meetLinkRegex.test(inputValue)
       ? ""
       : "Ingrese un enlace válido de Google Meet";
+  };
+
+  const registraReposicion = () => {
+    const data = {
+      idDocente: clase.id_docente,
+      idClase: clase.id_clase,
+      tipoTramite: tipoTramite,
+      conGoseSueldo: conGoseSueldo ? 1 : 0,
+      linkAulaVirtual: link,
+      motivo: motivo,
+      breveExplicacion: breveExplicacion,
+      fechaReposicion: fechaReposicion,
+      horaInicio: horaInicio,
+      horaFin: horaFin,
+    };
+    postRegistrarReposicion(data)
+      .then((data) => {
+        console.log("Success:", data);
+        navigate("/home", { state: { userData: userData, cuentaCatedratico: cuentaCatedratico } });
+
+      })
+      .catch((error) => console.error('Error:', error));
+
   };
   return (
     <div>
@@ -98,7 +176,8 @@ export default function ReposicionClase() {
                       <input
                         id="reposicion"
                         name="tipo-tramite"
-                        type="radio"
+                        type="radio" 
+                        onChange={handleTipoTramiteChange}
                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                     </div>
@@ -117,6 +196,7 @@ export default function ReposicionClase() {
                         id="sustitucion"
                         name="tipo-tramite"
                         type="radio"
+                        onChange={handleTipoTramiteChange}
                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                     </div>
@@ -135,6 +215,8 @@ export default function ReposicionClase() {
                         id="ninguno"
                         name="tipo-tramite"
                         type="radio"
+                        checked={tipoTramite === "ninguno"}
+                        onChange={handleTipoTramiteChange}
                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                     </div>
@@ -162,6 +244,8 @@ export default function ReposicionClase() {
                         id="reposicion"
                         name="tipo-tramite"
                         type="checkbox"
+                        checked={conGoseSueldo}
+                        onChange={handleConGoseSueldoChange}
                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                     </div>
@@ -210,9 +294,11 @@ export default function ReposicionClase() {
               <div>
                 <div className="mt-2">
                   <input
-                    id="aula-link"
-                    name="aula-link"
+                    id="motivo"
+                    name="motivo"
                     type="text"
+                    value={motivo}
+                    onChange={handleChange}
                     className=" pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -228,9 +314,11 @@ export default function ReposicionClase() {
             </label>
             <div className="mt-2">
               <textarea
-                id="about"
-                name="about"
+                id="breve-motivo"
+                name="breve-motivo"
                 rows={3}
+                value={breveExplicacion}
+                onChange={handleChange}
                 className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 defaultValue={""}
               />
@@ -253,8 +341,10 @@ export default function ReposicionClase() {
                     <input
                       className="border border-black rounded-lg"
                       type="date"
-                      name="fecha"
-                      id="fecha"
+                      name="fecha-reposicion"
+                      id="fecha-reposicion"
+                      value={fechaReposicion}
+                      onChange={handleChange}
                     />
                   </div>
                 </fieldset>
@@ -268,15 +358,19 @@ export default function ReposicionClase() {
                     <input
                       className="border border-black rounded-lg"
                       type="time"
-                      name="hora"
-                      id="hora"
+                      name="hora-inicio"
+                      id="hora-inicio"
+                      value={horaInicio}
+                      onChange={handleChange}
                     />
                     <span>á</span>
                     <input
                       className="border border-black rounded-lg"
                       type="time"
-                      name="hora"
-                      id="hora"
+                      name="hora-fin"
+                      id="hora-fin"
+                      value={horaFin}
+                      onChange={handleChange}
                     />
                   </div>
                 </fieldset>
@@ -295,6 +389,7 @@ export default function ReposicionClase() {
           </button>
           <button
             type="submit"
+            onClick={() => {registraReposicion()}}
             className="rounded-md bg-usap-blue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Guardar Reposicion
