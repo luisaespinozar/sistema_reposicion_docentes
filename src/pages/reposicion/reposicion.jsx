@@ -90,11 +90,15 @@ export default function ReposicionClase() {
     postRegistrarReposicion(data)
       .then((data) => {
         console.log("Success:", data);
-        navigate("/home", { state: { userData: userData, cuentaCatedratico: cuentaCatedratico } });
+        regresarHome();
 
       })
       .catch((error) => console.error('Error:', error));
 
+  };
+
+  const regresarHome = () => {
+    navigate("/home", { state: { userData: userData, cuentaCatedratico: cuentaCatedratico } });
   };
   return (
     <div>
@@ -383,6 +387,7 @@ export default function ReposicionClase() {
         <div className="pt-2 flex items-center justify-end gap-14">
           <button
             type="button"
+            onClick={() => {regresarHome()}}
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Cancel
