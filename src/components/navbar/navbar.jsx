@@ -42,7 +42,9 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    <a onClick={() => {navigate('/home', {state: {userData: userData}})}}>Home</a>
+                    <a onClick={() => {navigate('/about-us', {state: {userData: userData}})}}>About Us</a>
+                    {/* {navigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -56,7 +58,7 @@ export default function Navbar() {
                       >
                         {item.name}
                       </a>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               </div>

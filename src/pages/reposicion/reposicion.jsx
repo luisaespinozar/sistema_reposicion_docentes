@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate, } from "react-router-dom";
 import { postRegistrarReposicion } from "../../services/postReposicionDB";
+import Navbar from "../../components/navbar/navbar";
 
 export default function ReposicionClase() {
   const [tipoTramite, setTipoTramite] = useState(""); // Estado para el tipo de trámite (reposicion, sustitucion, ninguno)
@@ -102,6 +103,7 @@ export default function ReposicionClase() {
   };
   return (
     <div>
+      <Navbar />
       <div className="w-full border-b border-gray-900/10 flex items-center justify-evenly">
         <div className="lado-izq">
           <div className=" text-base font-semibold leading-7 text-gray-900">

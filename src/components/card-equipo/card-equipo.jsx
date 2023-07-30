@@ -1,12 +1,10 @@
-import Navbar from "../navbar/navbar";
-
 export default function CardEquipo() {
     return(
         <>
         <div className="flex flex-col items-center justify-center w-scree gap-4">
             <div className=" w-2/3 flex items-center justify-center">
                 <div className="seccion-izq  w-3/12 flex items-center justify-center">
-                    <img className="w-36 h-36 rounded-full" src="./src/assets/luisa.jpeg" alt="daniel-mejia" />
+                    <img className="w-36 h-36 rounded-full" src="./src/assets/daniel.jpeg" alt="daniel-mejia" />
                 </div>
                 <div className="seccion-der  w-3/6">
                     <div className="nom">
@@ -21,7 +19,7 @@ export default function CardEquipo() {
             </div>
             <div className=" w-2/3 flex items-center justify-center">
                 <div className="seccion-izq  w-3/12 flex items-center justify-center">
-                    <img className="w-36 h-36 rounded-full" src="./src/assets/luisa.jpeg" alt="luisa-valeria" />
+                    <img className="w-36 h-36 rounded-full" src="./src/assets/valeria.jpeg" alt="luisa-valeria" />
                 </div>
                 <div className="seccion-der  w-3/6">
                     <div className="nom">
@@ -36,7 +34,7 @@ export default function CardEquipo() {
             </div>
             <div className=" w-2/3 flex items-center justify-center">
                 <div className="seccion-izq  w-3/12 flex items-center justify-center">
-                    <img className="w-36 h-36 rounded-full" src="./src/assets/luisa.jpeg" alt="karol-machado" />
+                    <img className="w-36 h-36 rounded-full" src="./src/assets/karol.jpeg" alt="karol-machado" />
                 </div>
                 <div className="seccion-der  w-3/6">
                     <div className="nom">
