@@ -17,6 +17,7 @@ function classNames(...classes) {
 export default function Navbar() {
   const location = useLocation();
   const userData = location.state.userData;
+  const loginData = location.state.loginData;
   const navigate = useNavigate();
 
   return (
@@ -42,8 +43,22 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    <a onClick={() => {navigate('/home', {state: {userData: userData}})}}>Home</a>
-                    <a onClick={() => {navigate('/about-us', {state: {userData: userData}})}}>About Us</a>
+                    <a
+                      onClick={() => {
+                        navigate("/home", { state: { userData: userData } });
+                      }}
+                    >
+                      Home
+                    </a>
+                    <a
+                      onClick={() => {
+                        navigate("/about-us", {
+                          state: { userData: userData },
+                        });
+                      }}
+                    >
+                      About Us
+                    </a>
                     {/* {navigation.map((item) => (
                       <a
                         key={item.name}
@@ -63,7 +78,9 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <p className="font-bold text-white">{userData.name}</p>
+                <p className="font-bold text-white">
+                  {loginData?.nombre_completo ?? userData?.name}
+                </p>
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -71,7 +88,7 @@ export default function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={userData.picture}
+                        src={userData?.picture}
                         alt=""
                       />
                     </Menu.Button>
